@@ -256,8 +256,7 @@ var MCCordovaPlugin = {
         argsCheck.checkArgs('f', `${PLUGIN_NAME}.setOnNotificationOpenedListener`, arguments);
         onNotificationOpened = notificationOpenedListener;
         _exec(undefined, undefined, 'subscribe', ['notificationOpened']);
-    }
-
+    },
     /**
      * @callback module:MCCordovaPlugin~notificationOpenedCallback
      * @param {number} timeStamp - Time since epoch when the push message was
@@ -272,7 +271,43 @@ var MCCordovaPlugin = {
      * @param {string} values.type - Indicates the type of notification message.
      *     Possible values: 'cloudPage', 'openDirect' or 'other'
      */
-
+    locationEnabled: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.locationEnabled`, arguments);
+        _exec(successCallback, errorCallback, 'locationEnabled');
+    },
+    /**
+     * Start watching location in the native Marketing Cloud SDK.
+     * @param  {function} [successCallback]
+     * @param  {function} [errorCallback]
+     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.0/reference/com/salesforce/marketingcloud/package-summary.html|Android Docs}
+     * @see  {@link https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_startWatchingLocation:|iOS Docs}
+     */
+    startWatchingLocation: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.startWatchingLocation`, arguments);
+        _exec(successCallback, errorCallback, 'startWatchingLocation');
+    },
+    /**
+     * Stop watching location in the native Marketing Cloud SDK.
+     * @param  {function} [successCallback]
+     * @param  {function} [errorCallback]
+     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.0/reference/com/salesforce/marketingcloud/package-summary.html|Android Docs}
+     * @see  {@link https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_stopWatchingLocation:|iOS Docs}
+     */
+    stopWatchingLocation: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.stopWatchingLocation`, arguments);
+        _exec(successCallback, errorCallback, 'stopWatchingLocation');
+    },
+    /**
+     * Check if is watching location in the native Marketing Cloud SDK.
+     * @param  {function} [successCallback]
+     * @param  {function} [errorCallback]
+     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.0/reference/com/salesforce/marketingcloud/package-summary.html|Android Docs}
+     * @see  {@link https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_watchingLocation:|iOS Docs}
+     */
+    watchingLocation: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.watchingLocation`, arguments);
+        _exec(successCallback, errorCallback, 'watchingLocation');
+    }
 };
 
 module.exports = MCCordovaPlugin;
