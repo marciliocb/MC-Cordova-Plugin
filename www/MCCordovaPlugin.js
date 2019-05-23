@@ -279,7 +279,6 @@ var MCCordovaPlugin = {
      * Start watching location in the native Marketing Cloud SDK.
      * @param  {function} [successCallback]
      * @param  {function} [errorCallback]
-     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.0/reference/com/salesforce/marketingcloud/package-summary.html|Android Docs}
      * @see  {@link https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_startWatchingLocation:|iOS Docs}
      */
     startWatchingLocation: function(successCallback = undefined, errorCallback = undefined) {
@@ -290,7 +289,6 @@ var MCCordovaPlugin = {
      * Stop watching location in the native Marketing Cloud SDK.
      * @param  {function} [successCallback]
      * @param  {function} [errorCallback]
-     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.0/reference/com/salesforce/marketingcloud/package-summary.html|Android Docs}
      * @see  {@link https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_stopWatchingLocation:|iOS Docs}
      */
     stopWatchingLocation: function(successCallback = undefined, errorCallback = undefined) {
@@ -301,12 +299,35 @@ var MCCordovaPlugin = {
      * Check if is watching location in the native Marketing Cloud SDK.
      * @param  {function} [successCallback]
      * @param  {function} [errorCallback]
-     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.0/reference/com/salesforce/marketingcloud/package-summary.html|Android Docs}
-     * @see  {@link https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_watchingLocation:|iOS Docs}
+     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.2/reference/com/salesforce/marketingcloud/messages/RegionMessageManager.html#isGeofenceMessagingEnabled():|Android Docs}
      */
     watchingLocation: function(successCallback = undefined, errorCallback = undefined) {
         argsCheck.checkArgs('FF', `${PLUGIN_NAME}.watchingLocation`, arguments);
         _exec(successCallback, errorCallback, 'watchingLocation');
+    },
+    isGeofenceMessagingEnabled: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.isGeofenceMessagingEnabled`, arguments);
+        _exec(successCallback, errorCallback, 'isGeofenceMessagingEnabled');
+    },
+    /**
+     * Check if is watching location in the native Marketing Cloud SDK.
+     * @param  {function} [successCallback]
+     * @param  {function} [errorCallback]
+     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.2/reference/com/salesforce/marketingcloud/messages/RegionMessageManager.html#enableGeofenceMessaging():|Android Docs}
+     */
+    enableGeofenceMessaging: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.enableGeofenceMessaging`, arguments);
+        _exec(successCallback, errorCallback, 'enableGeofenceMessaging');
+    },
+    /**
+     * Check if is watching location in the native Marketing Cloud SDK.
+     * @param  {function} [successCallback]
+     * @param  {function} [errorCallback]
+     * @see  {@link https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.2/reference/com/salesforce/marketingcloud/messages/RegionMessageManager.html#disableGeofenceMessaging():|Android Docs}
+     */
+    disableGeofenceMessaging: function(successCallback = undefined, errorCallback = undefined) {
+        argsCheck.checkArgs('FF', `${PLUGIN_NAME}.disableGeofenceMessaging`, arguments);
+        _exec(successCallback, errorCallback, 'disableGeofenceMessaging');
     }
 };
 
