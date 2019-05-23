@@ -65,6 +65,11 @@ To enable push support for the Android platform you will need to include the goo
         * [.enableVerboseLogging([successCallback], [errorCallback])](#module_MCCordovaPlugin.enableVerboseLogging)
         * [.disableVerboseLogging([successCallback], [errorCallback])](#module_MCCordovaPlugin.disableVerboseLogging)
         * [.setOnNotificationOpenedListener(notificationOpenedListener)](#module_MCCordovaPlugin.setOnNotificationOpenedListener)
+        * [.startWatchingLocation([successCallback], [errorCallback])](#module_MCCordovaPlugin.startWatchingLocation)
+        * [.stopWatchingLocation([successCallback], [errorCallback])](#module_MCCordovaPlugin.stopWatchingLocation)
+        * [.watchingLocation([successCallback], [errorCallback])](#module_MCCordovaPlugin.watchingLocation)
+        * [.enableGeofenceMessaging([successCallback], [errorCallback])](#module_MCCordovaPlugin.enableGeofenceMessaging)
+        * [.disableGeofenceMessaging([successCallback], [errorCallback])](#module_MCCordovaPlugin.disableGeofenceMessaging)
     * _inner_
         * [~notificationOpenedCallback](#module_MCCordovaPlugin..notificationOpenedCallback) : <code>function</code>
 
@@ -336,6 +341,71 @@ Disables verbose logging within the native Marketing Cloud SDK.
 | --- | --- |
 | notificationOpenedListener | <code>function</code> | 
 | notificationOpenedListener.event | <code>MCCordovaPlugin~notificationOpenedCallback</code> | 
+
+<a name="module_MCCordovaPlugin.startWatchingLocation"></a>
+
+### MCCordovaPlugin.startWatchingLocation([successCallback], [errorCallback])
+Start watching location in the native Marketing Cloud SDK.
+
+**Kind**: static method of <code>[MCCordovaPlugin](#module_MCCordovaPlugin)</code>  
+**See**: [iOS Docs](https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_startWatchingLocation:)  
+
+| Param | Type |
+| --- | --- |
+| [successCallback] | <code>function</code> | 
+| [errorCallback] | <code>function</code> | 
+
+<a name="module_MCCordovaPlugin.stopWatchingLocation"></a>
+
+### MCCordovaPlugin.stopWatchingLocation([successCallback], [errorCallback])
+Stop watching location in the native Marketing Cloud SDK.
+
+**Kind**: static method of <code>[MCCordovaPlugin](#module_MCCordovaPlugin)</code>  
+**See**: [iOS Docs](https://salesforce-marketingcloud.github.io/MarketingCloudSDK-iOS/appledoc/Classes/MarketingCloudSDK.html#//api/name/sfmc_stopWatchingLocation:)  
+
+| Param | Type |
+| --- | --- |
+| [successCallback] | <code>function</code> | 
+| [errorCallback] | <code>function</code> | 
+
+<a name="module_MCCordovaPlugin.watchingLocation"></a>
+
+### MCCordovaPlugin.watchingLocation([successCallback], [errorCallback])
+Check if is watching location in the native Marketing Cloud SDK.
+
+**Kind**: static method of <code>[MCCordovaPlugin](#module_MCCordovaPlugin)</code>  
+**See**: [Android Docs](https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.2/reference/com/salesforce/marketingcloud/messages/RegionMessageManager.html#isGeofenceMessagingEnabled():)  
+
+| Param | Type |
+| --- | --- |
+| [successCallback] | <code>function</code> | 
+| [errorCallback] | <code>function</code> | 
+
+<a name="module_MCCordovaPlugin.enableGeofenceMessaging"></a>
+
+### MCCordovaPlugin.enableGeofenceMessaging([successCallback], [errorCallback])
+Check if is watching location in the native Marketing Cloud SDK.
+
+**Kind**: static method of <code>[MCCordovaPlugin](#module_MCCordovaPlugin)</code>  
+**See**: [Android Docs](https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.2/reference/com/salesforce/marketingcloud/messages/RegionMessageManager.html#enableGeofenceMessaging():)  
+
+| Param | Type |
+| --- | --- |
+| [successCallback] | <code>function</code> | 
+| [errorCallback] | <code>function</code> | 
+
+<a name="module_MCCordovaPlugin.disableGeofenceMessaging"></a>
+
+### MCCordovaPlugin.disableGeofenceMessaging([successCallback], [errorCallback])
+Check if is watching location in the native Marketing Cloud SDK.
+
+**Kind**: static method of <code>[MCCordovaPlugin](#module_MCCordovaPlugin)</code>  
+**See**: [Android Docs](https://salesforce-marketingcloud.github.io/JB4A-SDK-Android/javadocs/6.2/reference/com/salesforce/marketingcloud/messages/RegionMessageManager.html#disableGeofenceMessaging():)  
+
+| Param | Type |
+| --- | --- |
+| [successCallback] | <code>function</code> | 
+| [errorCallback] | <code>function</code> | 
 
 <a name="module_MCCordovaPlugin..notificationOpenedCallback"></a>
 

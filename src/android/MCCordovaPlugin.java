@@ -28,17 +28,17 @@ package com.salesforce.marketingcloud.cordova;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import com.salesforce.marketingcloud.MCLogListener;
 import com.salesforce.marketingcloud.MarketingCloudSdk;
 import com.salesforce.marketingcloud.notifications.NotificationManager;
 import com.salesforce.marketingcloud.notifications.NotificationMessage;
+import java.util.Collection;
+import java.util.Map;
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Collection;
-import java.util.Map;
 
 public class MCCordovaPlugin extends CordovaPlugin {
     static final String TAG = "~!MCCordova";
@@ -229,6 +229,12 @@ public class MCCordovaPlugin extends CordovaPlugin {
                 return setContactKey();
             case "getContactKey":
                 return getContactKey();
+            case "isGeofenceMessagingEnabled":
+                return isGeofenceMessagingEnabled();
+            case "enableGeofenceMessaging":
+                return enableGeofenceMessaging();
+            case "disableGeofenceMessaging":
+                return disableGeofenceMessaging();
             default:
                 return null;
         }
@@ -369,6 +375,40 @@ public class MCCordovaPlugin extends CordovaPlugin {
             public void execute(
                 MarketingCloudSdk sdk, JSONArray args, CallbackContext callbackContext) {
                 callbackContext.success(sdk.getPushMessageManager().getPushToken());
+            }
+        };
+    }
+
+    private ActionHandler enableGeofenceMessaging() {
+        return new ActionHandler() {
+            @Override
+            public void execute(
+                MarketingCloudSdk sdk, JSONArray args, CallbackContext callbackContext) {
+                callbackContext.success(
+                    sdk.getRegionMessageManager().enableGeofenceMessaging() ? 1 : 0);
+            }
+        };
+    }
+
+    private ActionHandler disableGeofenceMessaging() {
+        return new ActionHandler() {
+            @Override
+            public void execute(
+                MarketingCloudSdk sdk, JSONArray args, CallbackContext callbackContext) {
+                sdk.getRegionMessageManager().disableGeofenceMessaging();
+                callbackContext.success();
+            }
+        };
+    }
+
+    private ActionHandler isGeofenceMessagingEnabled() {
+        return new ActionHandler() {
+            @Override
+            public void execute(
+                MarketingCloudSdk sdk, JSONArray args, CallbackContext callbackContext) {
+                Log.v(TAG, "setGeofencingEnabled: " + val);
+                callbackContext.success(
+                    sdk.getRegionMessageManager().isGeofenceMessagingEnabled() ? 1 : 0);
             }
         };
     }

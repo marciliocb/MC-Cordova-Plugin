@@ -25,6 +25,8 @@
  */
 package com.salesforce.marketingcloud.cordova;
 
+import static com.salesforce.marketingcloud.cordova.MCCordovaPlugin.TAG;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -33,13 +35,10 @@ import android.util.Log;
 import com.google.firebase.FirebaseApp;
 import com.salesforce.marketingcloud.MarketingCloudConfig;
 import com.salesforce.marketingcloud.notifications.NotificationCustomizationOptions;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.IOException;
 import java.util.Locale;
-
-import static com.salesforce.marketingcloud.cordova.MCCordovaPlugin.TAG;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 public class MCSdkConfig {
     private static final String CONFIG_PREFIX = "com.salesforce.marketingcloud.";
@@ -105,9 +104,15 @@ public class MCSdkConfig {
                             builder.setDelayRegistrationUntilContactKeyIsSet(
                                 "true".equalsIgnoreCase(val));
                             break;
+                        case CONFIG_PREFIX + "location":
+                            builder.setGeofencingEnabled("true".equalsIgnoreCase(val));
+                            break;
                     }
                 }
             }
+
+            builder.setGeofencingEnabled(true);
+
         } catch (XmlPullParserException e) {
             Log.e(TAG, "Unable to read config.xml.", e);
         } catch (IOException ioe) {

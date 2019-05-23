@@ -64,5 +64,17 @@
     <framework src="src/ios/MarketingCloudSDK/MarketingCloudSDK.framework" custom="true"/>
     <framework src="CoreLocation.framework/" />
 
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>remote-notification</string>
+      </array>
+    </config-file>
+    <config-file target="*-Debug.plist" parent="aps-environment">
+      <string>development</string>
+    </config-file>
+    <config-file target="*-Release.plist" parent="aps-environment">
+      <string>production</string>
+    </config-file>
+
   </platform>
 </plugin>
