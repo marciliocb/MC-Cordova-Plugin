@@ -41,89 +41,94 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public class MCSdkConfig {
-  private static final String CONFIG_PREFIX = "com.salesforce.marketingcloud.";
+    private static final String CONFIG_PREFIX = "com.salesforce.marketingcloud.";
 
-  private MCSdkConfig() {
-  }
+    private MCSdkConfig() {}
 
-  @Nullable
-  public static MarketingCloudConfig.Builder prepareConfigBuilder(Context context) {
-    Resources res = context.getResources();
-    int configId = res.getIdentifier("config", "xml", context.getPackageName());
+    @Nullable
+    public static MarketingCloudConfig.Builder prepareConfigBuilder(Context context) {
+        Resources res = context.getResources();
+        int configId = res.getIdentifier("config", "xml", context.getPackageName());
 
-    if (configId == 0) {
-      return null;
-    }
-
-    XmlResourceParser parser = res.getXml(configId);
-
-    return parseConfig(context, parser);
-  }
-
-  static MarketingCloudConfig.Builder parseConfig(Context context, XmlPullParser parser) {
-    MarketingCloudConfig.Builder builder = MarketingCloudConfig.builder();
-    boolean senderIdSet = false;
-    try {
-      while (parser.next() != XmlPullParser.END_DOCUMENT) {
-        if (parser.getEventType() != XmlPullParser.START_TAG || !"preference".equals(parser.getName())) {
-          continue;
+        if (configId == 0) {
+            return null;
         }
 
-        String key = parser.getAttributeValue(null, "name");
-        String val = parser.getAttributeValue(null, "value");
+        XmlResourceParser parser = res.getXml(configId);
 
-        if (key != null && val != null) {
-          key = key.toLowerCase(Locale.US);
+        return parseConfig(context, parser);
+    }
 
-          switch (key) {
-          case CONFIG_PREFIX + "app_id":
-            builder.setApplicationId(val);
-            break;
-          case CONFIG_PREFIX + "access_token":
-            builder.setAccessToken(val);
-            break;
-          case CONFIG_PREFIX + "sender_id":
-            builder.setSenderId(val);
-            senderIdSet = true;
-            break;
-          case CONFIG_PREFIX + "analytics":
-            builder.setAnalyticsEnabled("true".equalsIgnoreCase(val));
-            break;
-          case CONFIG_PREFIX + "notification_small_icon":
-            int notifId = context.getResources().getIdentifier(val, "drawable", context.getPackageName());
-            if (notifId != 0) {
-              builder.setNotificationCustomizationOptions(NotificationCustomizationOptions.create(notifId));
+    static MarketingCloudConfig.Builder parseConfig(Context context, XmlPullParser parser) {
+        MarketingCloudConfig.Builder builder = MarketingCloudConfig.builder();
+        boolean senderIdSet = false;
+        try {
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                if (parser.getEventType() != XmlPullParser.START_TAG
+                    || !"preference".equals(parser.getName())) {
+                    continue;
+                }
+
+                String key = parser.getAttributeValue(null, "name");
+                String val = parser.getAttributeValue(null, "value");
+
+                if (key != null && val != null) {
+                    key = key.toLowerCase(Locale.US);
+
+                    switch (key) {
+                        case CONFIG_PREFIX + "app_id":
+                            builder.setApplicationId(val);
+                            break;
+                        case CONFIG_PREFIX + "access_token":
+                            builder.setAccessToken(val);
+                            break;
+                        case CONFIG_PREFIX + "sender_id":
+                            builder.setSenderId(val);
+                            senderIdSet = true;
+                            break;
+                        case CONFIG_PREFIX + "analytics":
+                            builder.setAnalyticsEnabled("true".equalsIgnoreCase(val));
+                            break;
+                        case CONFIG_PREFIX + "notification_small_icon":
+                            int notifId = context.getResources().getIdentifier(
+                                val, "drawable", context.getPackageName());
+                            if (notifId != 0) {
+                                builder.setNotificationCustomizationOptions(
+                                    NotificationCustomizationOptions.create(notifId));
+                            }
+                            break;
+                        case CONFIG_PREFIX + "tenant_specific_endpoint":
+                            builder.setMarketingCloudServerUrl(val);
+                            break;
+                        case CONFIG_PREFIX + "delay_registration_until_contact_key_is_set":
+                            builder.setDelayRegistrationUntilContactKeyIsSet(
+                                "true".equalsIgnoreCase(val));
+                            break;
+                        case CONFIG_PREFIX + "location":
+                            builder.setGeofencingEnabled("true".equalsIgnoreCase(val));
+                            break;
+                    }
+                }
             }
-            break;
-          case CONFIG_PREFIX + "tenant_specific_endpoint":
-            builder.setMarketingCloudServerUrl(val);
-            break;
-          case CONFIG_PREFIX + "delay_registration_until_contact_key_is_set":
-            builder.setDelayRegistrationUntilContactKeyIsSet("true".equalsIgnoreCase(val));
-            break;
-          case CONFIG_PREFIX + "location":
-            builder.setGeofencingEnabled("true".equalsIgnoreCase(val));
-            break;
-          }
+
+            builder.setGeofencingEnabled(true);
+
+        } catch (XmlPullParserException e) {
+            Log.e(TAG, "Unable to read config.xml.", e);
+        } catch (IOException ioe) {
+            Log.e(TAG, "Unable to open config.xml.", ioe);
         }
-      }
 
-      builder.setGeofencingEnabled(true);
+        if (!senderIdSet) {
+            try {
+                builder.setSenderId(FirebaseApp.getInstance().getOptions().getGcmSenderId());
+            } catch (Exception e) {
+                Log.e(TAG,
+                    "Unable to retrieve sender id.  Push messages will not work for Marketing Cloud.",
+                    e);
+            }
+        }
 
-    } catch (XmlPullParserException e) {
-      Log.e(TAG, "Unable to read config.xml.", e);
-    } catch (IOException ioe) {
-      Log.e(TAG, "Unable to open config.xml.", ioe);
+        return builder;
     }
-
-    if (!senderIdSet) {
-      try {
-        builder.setSenderId(FirebaseApp.getInstance().getOptions().getGcmSenderId());
-      } catch (Exception e) {
-        Log.e(TAG, "Unable to retrieve sender id.  Push messages will not work for Marketing Cloud.", e);
-      }
-    }
-
-    return builder;
-  }
 }
