@@ -406,7 +406,6 @@ public class MCCordovaPlugin extends CordovaPlugin {
             @Override
             public void execute(
                 MarketingCloudSdk sdk, JSONArray args, CallbackContext callbackContext) {
-                Log.v(TAG, "setGeofencingEnabled: " + val);
                 callbackContext.success(
                     sdk.getRegionMessageManager().isGeofenceMessagingEnabled() ? 1 : 0);
             }
